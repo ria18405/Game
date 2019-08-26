@@ -8,89 +8,113 @@
  *
  * @author RiaGupta
  */
-class hero{
+ abstract class hero{
+     
+    public int xp=0;
+    public int hp=100;
+    int attack_value;
+    int defence_value;
     
-    public int xp;
-    public int hp;
+
 //    public int attack_value;
 //    public int defence;
 //    public int special;
-   public hero(){
-       this.xp=0;
-       this.hp=100;
-   }
+    public abstract void attack(Monster mon);
+    public abstract void defence(Monster mon);
+    public abstract void special(Monster mon);
+//   public hero(){
+//       this.xp=0;
+//       this.hp=100;
+//   }
 
 //    public void attack(){
 ////        opponent.hp-=attack_value;
 //    }
     }
     class Warrior extends hero{
-        int attack_value;
         public Warrior(){
-            attack_value=10;
+            this.attack_value=10;
+            this.defence_value=3;
         }
+        
         public void attack(Monster mon){
-            mon.hp-=attack_value;
-            System.out.println("You choose to attack\n" + "You attacked and inflicted "+attack_value+" damage to the monster.\n" +"Your Hp: 85/100 Monsters Hp: 88/100");
-
+            mon.hp-=this.attack_value;
+            System.out.println("You choose to attack\n" + "You attacked and inflicted "+attack_value+" damage to the monster.");        }
+         
+        public void defence(Monster mon){
+//          System.out.println("defence_warrior"); 
+          mon.attack(this);
+          this.hp+=defence_value;
         }
-        public void defence(){
-          System.out.println("defence_warrior");  
-        }
-        public void special(){
+         
+        public void special(Monster mon){
             System.out.println("special"); 
+//            counter=0;
+            this.attack_value+=5;
+            this.defence_value+=5;
         }
     }
     class Mage extends hero{
-        int attack_value;
-        public Mage(){
-            attack_value=10;
+         public Mage(){
+            this.attack_value=5;
+            this.defence_value=5;
         }
+        
         public void attack(Monster mon){
-            mon.hp-=attack_value;
-            System.out.println("You choose to attack\n" + "You attacked and inflicted "+attack_value+" damage to the monster.\n" +"Your Hp: 85/100 Monsters Hp: 88/100");
+            mon.hp-=this.attack_value;
+            System.out.println("You choose to attack\n" + "You attacked and inflicted "+this.attack_value+" damage to the monster.");
 
         }
-        public void defence(){
-          System.out.println("yo");  
+        public void defence(Monster mon){
+//          System.out.println("yo");
+            mon.attack(this);
+            this.hp+=this.defence_value;
+          
         }
-        public void special(){
+        public void special(Monster mon){
             System.out.println("special"); 
         }
     }
     
     class Thief extends hero{
-       int attack_value;
+       
         public Thief(){
-            attack_value=10;
+            this.attack_value=6;
+            this.defence_value=4;
         }
         public void attack(Monster mon){
-            mon.hp-=attack_value;
-            System.out.println("You choose to attack\n" + "You attacked and inflicted "+attack_value+" damage to the monster.\n" +"Your Hp: 85/100 Monsters Hp: 88/100");
+            mon.hp-=this.attack_value;
+            System.out.println("You choose to attack\n" + "You attacked and inflicted "+this.attack_value+" damage to the monster.");
 
         }
-        public void defence(){
-          System.out.println("defence");  
+        public void defence(Monster mon){
+          mon.attack(this);
+//          System.out.println("defence");  
+          this.hp+=this.defence_value;
         }
-        public void special(){
+        public void special(Monster mon){
             System.out.println("special"); 
+
+            
         }
     }
     
     class Healer extends hero{
-              int attack_value;
         public Healer(){
-            attack_value=10;
+            this.attack_value=4;
+            this.defence_value=8;
         }
         public void attack(Monster mon){
-            mon.hp-=attack_value;
-            System.out.println("You choose to attack\n" + "You attacked and inflicted "+attack_value+" damage to the monster.\n" +"Your Hp: 85/100 Monsters Hp: 88/100");
+            mon.hp-=this.attack_value;
+            System.out.println("You choose to attack\n" + "You attacked and inflicted "+this.attack_value+" damage to the monster");
 
         }
-        public void defence(){
-          System.out.println("defence");  
+        public void defence(Monster mon){
+          mon.attack(this);
+//          System.out.println("defence");  
+          this.hp+=this.defence_value;
         }
-        public void special(){
+        public void special(Monster mon){
             System.out.println("special"); 
         }
     }
