@@ -34,6 +34,7 @@ public class Game {
             System.out.println("Choose a Hero\n" + "1) Warrior\n" + "2) Thief\n" + "3) Mage\n" + "4) Healer");
             int type=Sc.nextInt();
             user newuser= new user(name,type);
+            
             userarray.add(newuser);
             System.out.println("User Creation done. Username: pan. Hero type: Thief. Log in to play the game . Exiting");
             startgame(userarray,arr_loc);
@@ -42,22 +43,46 @@ public class Game {
             System.out.println("Enter Username" );
             String in_name=Sc.next();
             System.out.println("User Found... logging in\n" + "Welcome " +in_name+"\n" +"You are at the starting location. Choose path:\n" +"1) Go to Location 0\n" +"2) Go to Location 3\n" +"3) Go to Location 6\n" +"Enter -1 to exit");
+
+            int in_type=0;
+            hero obj;
+            //traverse through arraylist and find location corresponding to the name : then make an object accordingly.
+            for(int i=0;i<userarray.size();i++){
+                if(userarray.get(i).name.equals(in_name)){
+                    in_type=userarray.get(i).type;
+                }
+            }
+            
+            if (in_type==1){
+                //make an object of warrior class
+                obj=new Warrior();
+            }
+            else if(in_type==2){
+                obj=new Mage();
+            }
+            else if(in_type==3){
+                obj=new Thief();
+            }
+            else{
+               obj=new Healer();
+            }
+    
             int loc=Sc.nextInt();
             if(loc==-1){
                 startgame(userarray,arr_loc);
             }
             else{
-                location(loc,arr_loc);
-            }
+                location(loc,arr_loc,obj);
+            } 
         }
         else {
             return;
         }   
     }
-    public static void location(int location,int [] arr_loc){
+    public static void location(int location,int [] arr_loc,hero obj){
         System.out.println("Moving to location "+location+"\n" + "Fight Started. You're fighting a level "+arr_loc[location-1]+"  Monster.\n" +"Choose move:\n" +"1) Attack\n" +"2) Defense");
 //        me.attack;
-        Monster mon;
+            Monster mon;
             if(arr_loc[location-1]==1){
             mon=new Goblins();
             }
@@ -67,15 +92,23 @@ public class Game {
             else if(arr_loc[location-1]==3){
                 mon=new Fiends();
             }
+            else{
+                mon=new Fiends();
+            }
             
-            
+            fight(obj,mon);
         }
-    public static void fight(){
+    public static void fight(hero obj,Monster mon){
         Scanner Sc=new Scanner(System.in);
         System.out.println("Choose move:\n" + "1) Attack\n" + "2) Defense");
         int move=Sc.nextInt();
         if(move==1){
-            
+            obj.attack(mon);
+            mon.attack();
+            System.out.println("Monster attack!\n" +"monster attacked and inflicted "+ "damage to you.\n" + "Your Hp:"+ obj.hp+"/100 . Monsters Hp:" +mon.hp+"/100");
+        }
+        else if(move==2){
+            obj.defence(mon);
         }
     }
 
@@ -83,11 +116,12 @@ public class Game {
 class user{
     public String name;
     public int type;
-    public hero obj;
+//    public hero obj;
     public user(String name,int type){
         this.name=name;
         this.type=type;
-    
+    }
+    /*
     if(this.type==1){
         //make an object of warrior class
         obj=new Warrior();
@@ -100,10 +134,11 @@ class user{
     }
     else{
        obj=new Healer();
-    }
+    }*/
     
-    }
     
+    
+   
     
     
 }

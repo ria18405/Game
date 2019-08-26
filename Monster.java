@@ -24,7 +24,7 @@ class Monster{
     }
 }
 class Goblins extends Monster{
-    
+   
 }
 class Zombies extends Monster{
     
