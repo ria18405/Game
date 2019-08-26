@@ -35,20 +35,65 @@ class hero{
 
         }
         public void defence(){
-            
+          System.out.println("defence_warrior");  
         }
         public void special(){
-            
+            System.out.println("special"); 
         }
     }
     class Mage extends hero{
+        int attack_value;
+        public Mage(){
+            attack_value=10;
+        }
+        public void attack(Monster mon){
+            mon.hp-=attack_value;
+            System.out.println("You choose to attack\n" + "You attacked and inflicted "+attack_value+" damage to the monster.\n" +"Your Hp: 85/100 Monsters Hp: 88/100");
 
+        }
+        public void defence(){
+          System.out.println("yo");  
+        }
+        public void special(){
+            System.out.println("special"); 
+        }
     }
+    
     class Thief extends hero{
+       int attack_value;
+        public Thief(){
+            attack_value=10;
+        }
+        public void attack(Monster mon){
+            mon.hp-=attack_value;
+            System.out.println("You choose to attack\n" + "You attacked and inflicted "+attack_value+" damage to the monster.\n" +"Your Hp: 85/100 Monsters Hp: 88/100");
 
+        }
+        public void defence(){
+          System.out.println("defence");  
+        }
+        public void special(){
+            System.out.println("special"); 
+        }
     }
+    
     class Healer extends hero{
+              int attack_value;
+        public Healer(){
+            attack_value=10;
+        }
+        public void attack(Monster mon){
+            mon.hp-=attack_value;
+            System.out.println("You choose to attack\n" + "You attacked and inflicted "+attack_value+" damage to the monster.\n" +"Your Hp: 85/100 Monsters Hp: 88/100");
 
+        }
+        public void defence(){
+          System.out.println("defence");  
+        }
+        public void special(){
+            System.out.println("special"); 
+        }
     }
+    
 
 
