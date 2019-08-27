@@ -19,17 +19,27 @@ public class Game {
         
         int[] arr_loc = new int[7];
         Random r = new Random();
-        for (int i = 0; i < 3; i++) {
+        if(level <4){
+           for (int i = 0; i < 7; i++) {
             arr_loc[i] = r.nextInt(3) + 1;
             //storing levels
+        } 
         }
-        for (int i = 3; i < 7; i++) {
+        else{
+           for (int i = 0; i < 7; i++) {
             arr_loc[i] = r.nextInt(4) + 1;
             //storing levels
+        } 
         }
+        
+//        for (int i = 3; i < 7; i++) {
+//            arr_loc[i] = r.nextInt(4) + 1;
+//            //storing levels
+//        }
         for(int j=0;j<7;j++){
-            System.out.println(arr_loc[j]+ " ");
+            System.out.print(arr_loc[j]+ " ");
         }
+        System.out.println();
         ArrayList<user> userarray = new ArrayList<user>();
         startgame(userarray, arr_loc);
         
@@ -42,12 +52,12 @@ public class Game {
         if (in == 1) {
             System.out.println("Enter Username");
             String name = Sc.next();
-            System.out.println("Choose a Hero\n" + "1) Warrior\n" + "2) Thief\n" + "3) Mage\n" + "4) Healer");
+            System.out.println("Choose a Hero\n" + "1) Warrior\n" + "2) Mage\n" + "3) Thief \n" + "4) Healer");
             int type = Sc.nextInt();
             user newuser = new user(name, type);
-            
+            String [] montypearr=new String[]{"Warrior","Mage","Theif","Healer" };
             userarray.add(newuser);
-            System.out.println("User Creation done. Username: pan. Hero type: Thief. Log in to play the game . Exiting");
+            System.out.println("User Creation done. Username:"+name+". Hero type: "+montypearr[type-1]+". Log in to play the game . Exiting");
             startgame(userarray, arr_loc);
         } else if (in == 2) {
             System.out.println("Enter Username");
@@ -56,12 +66,24 @@ public class Game {
             int in_type = 0;
             hero obj;
             Random r = new Random();
+            int [] arr=new int[3];
+            arr[0]=r.nextInt(7);
+            int temp=r.nextInt(7);
+            if(temp!=arr[0]){
+                arr[1]=temp;
+            }
+            int temp2=r.nextInt(7);
+            if(temp2!=arr[0] && temp2!=arr[1]){
+                arr[2]=temp2;
+            }
+            
+            
             //traverse through arraylist and find location corresponding to the name : then make an object accordingly.
             for (int i = 0; i < userarray.size(); i++) {
                 if (userarray.get(i).name.equals(in_name)) {
                     in_type = userarray.get(i).type;
                     System.out.println("User Found... logging in\n" + "Welcome " + in_name + "\n" + "You are at the starting location. ");
-                    System.out.println( "Choose path:\n" + "1) Go to Location" + r.nextInt(7) +"\n"+ "2) Go to Location"+r.nextInt(7)+"\n" + "3) Go to Location 6\n" + "Enter -1 to exit");
+                    System.out.println( "Choose path:\n" + "1) Go to Location " + arr[0] +"\n"+ "2) Go to Location "+arr[1]+"\n" + "3) Go to Location "+arr[2]+"\n" + "Enter -1 to exit");
                     
                 }
                 
@@ -79,12 +101,24 @@ public class Game {
             }
             
             int loc = Sc.nextInt();
+            int location;
             if (loc == -1) {
                 startgame(userarray, arr_loc);
-            } else {
-                location(loc, arr_loc, obj);
+            } 
+            else{ 
+                if(loc==1){
+                location=arr[0];
+                }
+            else if(loc==2){
+                location=arr[1];
+                }
+            else {
+                location=arr[2];
+                }
+                location(location, arr_loc, obj);
             }            
-        } else {
+        } 
+        else {
             return;
         }        
     }
@@ -114,6 +148,7 @@ public class Game {
             obj.xp += 20;
             obj.attack_value+=1;
             obj.defence_value+=1;
+            counter=0;
             if(level==2){
                 obj.hp=150;
             }
@@ -123,8 +158,31 @@ public class Game {
             if(level==4){
                 obj.hp=250;
             }
-            System.out.println("Fight won proceed to the next location.\n" + "You are at location 0 Choose path:\n" + "1) Go to Location 1\n" + "2) Go to Location 4\n" + "3) Go to Location 7\n" + "4) Go back\n" + "Enter -1 to exit");
+            Random r=new Random();
+            int [] arr=new int[3];
+            arr[0]=r.nextInt(7);
+            int temp=r.nextInt(7);
+            if(temp!=arr[0]){
+                arr[1]=temp;
+            }
+            int temp2=r.nextInt(7);
+            if(temp2!=arr[0] && temp2!=arr[1]){
+                arr[2]=temp;
+            }
+            System.out.println("Fight won proceed to the next location.\n" + "You are at location"+location +"Choose path:\n" + "1) Go to Location "+arr[0]+"\n" + "2) Go to Location "+arr[1]+"\n" + "3) Go to Location"+arr[2]+"\n" + "4) Go back\n" + "Enter -1 to exit");
             int in_loc = Sc.nextInt();
+            if(in_loc==1){
+                location=arr[0];
+            }
+            else if(in_loc==2){
+                location=arr[1];
+            }
+            else if(in_loc ==3){
+                location=arr[2];
+            }
+            else if(in_loc==-1){
+                return;
+            }
             location(location, arr_loc, obj);
         }
         
@@ -151,22 +209,28 @@ public class Game {
             else{
                 total=250;
             }
+            
+
         int move = Sc.nextInt();
         if (move == 1) {
 
             obj.attack(mon);
-            System.out.println("Your HP: "+obj.hp +"/"+ total+ "Monsters HP: "+ mon.hp);
+            System.out.println("Your HP: "+obj.hp +"/"+ total+ " Monsters HP: "+ mon.hp+"/"+mon.maxhp);
             mon.attack(obj);
-            System.out.println("Your Hp:"+ obj.hp+"/" + total +" Monsters Hp:" +mon.hp);
+            System.out.println("Your Hp:"+ obj.hp+"/" + total +" Monsters Hp:" +mon.hp+"/"+mon.maxhp);
             
-        } else if (move == 2) {
+        } else if (move == 2)
+        {
             obj.defence(mon);
-            System.out.println("Your HP: "+obj.hp +"/"+ total+ "Monsters HP: "+ mon.hp);
+            System.out.println("Your HP: "+obj.hp +"/"+ total+ " Monsters HP: "+ mon.hp+"/"+mon.maxhp);
+            
         } else {
             counter=0;
             obj.special(mon);
-            System.out.println("Your HP: "+obj.hp +"/"+ total+ "Monsters HP: "+ mon.hp);
+            System.out.println("Your HP: "+obj.hp +"/"+ total+ " Monsters HP: "+ mon.hp+"/"+mon.maxhp);
             mon.attack(obj);
+            System.out.println("Your HP: "+obj.hp +"/"+ total+ " Monsters HP: "+ mon.hp+"/"+mon.maxhp);
+            
         }
     }
     

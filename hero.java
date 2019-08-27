@@ -14,6 +14,7 @@
     public int hp=100;
     int attack_value;
     int defence_value;
+    int special_value=0;
     
 
 //    public int attack_value;
@@ -38,21 +39,41 @@
         }
         
         public void attack(Monster mon){
+            if(this.special_value>0){
+                this.attack_value=15;
+                this.defence_value=8;
+                this.special_value-=1;
+            }
+            else{
+                this.attack_value=10;
+                this.defence_value=3;
+            }
             mon.hp-=this.attack_value;
             System.out.println("You choose to attack\n" + "You attacked and inflicted "+attack_value+" damage to the monster.");        
             
     }
         public void defence(Monster mon){
 //          System.out.println("defence_warrior"); 
+            if(this.special_value>0){
+                this.attack_value=15;
+                this.defence_value=8;
+                this.special_value-=1;
+            }
+            else{
+                this.attack_value=10;
+                this.defence_value=3;
+            }
+          
+          System.out.println("You choose to defend\n" + "Monster attack reduced by"+ this.defence_value);
+          this.hp+=this.defence_value;
           mon.attack(this);
-          this.hp+=defence_value;
         }
          
         public void special(Monster mon){
-            
+            this.special_value=3;
             System.out.println("Special power activated\n" +"Performing special attack\n" +"You have increased your attack and defence ues by 5 Hp");
-            this.attack_value+=5;
-            this.defence_value+=5;
+//            this.attack_value+=5;
+//            this.defence_value+=5;
         }
     }
     class Mage extends hero{
@@ -62,20 +83,32 @@
         }
         
         public void attack(Monster mon){
+            if(this.special_value>0){
+                mon.hp-=(int)(0.05*mon.hp);
+                this.special_value-=1;
+            }
+            
             mon.hp-=this.attack_value;
             System.out.println("You choose to attack\n" + "You attacked and inflicted "+this.attack_value+" damage to the monster.");
 //            System.out.println("Your HP: "+this.hp+" Monsters HP: "+ mon.hp);
         }
         public void defence(Monster mon){
 //          System.out.println("yo");
-            mon.attack(this);
+            if(this.special_value>0){
+                mon.hp-=(int)(0.05*mon.hp);
+                this.special_value-=1;
+            }
+            
+            System.out.println("You choose to defend\n" + "Monster attack reduced by"+ this.defence_value);
             this.hp+=this.defence_value;
+            mon.attack(this);
           
         }
         public void special(Monster mon){
+            this.special_value=3;
             System.out.println("Special power activated\n" +"Performing special attack\n" +"You have decreased monsters's hp by 5%");
 
-            mon.hp-=(0.05*mon.hp);
+//            mon.hp-=(0.05*mon.hp);
         }
     }
     
@@ -91,17 +124,19 @@
 //            System.out.println("Your HP: "+this.hp+" Monsters HP: "+ mon.hp);
         }
         public void defence(Monster mon){
-          mon.attack(this);
+          
 //          System.out.println("defence");  
+           System.out.println("You choose to defend\n" + "Monster attack reduced by"+ this.defence_value);
           this.hp+=this.defence_value;
+          mon.attack(this);
+          
         }
         public void special(Monster mon){
-           
+           this.special_value=3;
             System.out.println("Special power activated\n" +"Performing special attack\n" +"You have stolen "+ 0.3*mon.hp +"Hp from the monster!");
-             this.hp+=(0.3*mon.hp);
-            mon.hp-=(0.3*mon.hp);
-            
-            
+            this.hp+=(int)(0.3*mon.hp);
+            mon.hp-=(int)(0.3*mon.hp);
+         
             //stealing 30% hp        
         }
     }
@@ -112,19 +147,29 @@
             this.defence_value=8;
         }
         public void attack(Monster mon){
+            if(this.special_value>0){
+                this.hp+=(int)(0.05*this.hp);
+                this.special_value-=1;
+            }
             mon.hp-=this.attack_value;
             System.out.println("You choose to attack\n" + "You attacked and inflicted "+this.attack_value+" damage to the monster");
 
         }
         public void defence(Monster mon){
-          mon.attack(this);
-//          System.out.println("defence");  
+            if(this.special_value>0){
+                this.hp+=(int)(0.05*this.hp);
+                this.special_value-=1;
+            }
+//          System.out.println("defence");
+            System.out.println("You choose to defend\n" + "Monster attack reduced by"+ this.defence_value);
           this.hp+=this.defence_value;
+            mon.attack(this);
+
         }
         public void special(Monster mon){
-            System.out.println("special");
+            this.special_value=3;
             System.out.println("Special power activated\n" +"Performing special attack\n" +"You have increased your own Hp by 5%");
-            this.hp+=(0.05*this.hp);
+//            this.hp+=(0.05*this.hp);
         }
     }
     

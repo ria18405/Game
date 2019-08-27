@@ -15,6 +15,7 @@ import java.util.Random;
 class Monster{
     
     public int hp;
+    public int maxhp;
     public void attack(hero obj){
         Random r=new Random();
         double rvar=r.nextGaussian();
@@ -40,22 +41,26 @@ class Monster{
 class Goblins extends Monster{
     public Goblins(){
           this.hp=100; 
+          this.maxhp=100;
     }
 
 }
 class Zombies extends Monster{
     public Zombies(){
         this.hp=100;
+        this.maxhp=100;
     }
 }
 class Fiends extends Monster{
     public Fiends(){
         this.hp=200;
+        this.maxhp=200;
     }
 }
 class Lionfang extends Monster{
     public Lionfang(){
         this.hp=250;
+        this.maxhp=250;
     }
     @Override
     public void attack(hero obj){
