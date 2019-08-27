@@ -36,10 +36,10 @@ public class Game {
 //            arr_loc[i] = r.nextInt(4) + 1;
 //            //storing levels
 //        }
-        for(int j=0;j<7;j++){
-            System.out.print(arr_loc[j]+ " ");
-        }
-        System.out.println();
+//        for(int j=0;j<7;j++){
+//            System.out.print(arr_loc[j]+ " ");
+//        }
+//        System.out.println();
         ArrayList<user> userarray = new ArrayList<user>();
         startgame(userarray, arr_loc);
         
@@ -125,26 +125,38 @@ public class Game {
 
     public static void location(int location, int[] arr_loc, hero obj) {
         Scanner Sc = new Scanner(System.in);
-        System.out.println("Moving to location " + location + "\n" + "Fight Started. You're fighting a level " + arr_loc[location - 1] + "  Monster.");
+        System.out.println("Moving to location " + location + "\n" + "Fight Started. You're fighting a level " + arr_loc[location] + "  Monster.");
 //        me.attack;
         Monster mon;
-        if (arr_loc[location - 1] == 1) {
+        if(level==4){
+            mon=new Lionfang();
+        }
+        else if (arr_loc[location ] == 1) {
             mon = new Goblins();
-        } else if (arr_loc[location - 1] == 2) {
+        } else if (arr_loc[location ] == 2) {
             mon = new Zombies();
-        } else if (arr_loc[location - 1] == 3) {
+        } else if (arr_loc[location ] == 3) {
             mon = new Fiends();
-        } else {
+        }
+            else {
             mon = new Lionfang();
         }
-        while (mon.hp > 0) {
+        while (mon.hp > 0 && obj.get_hp()>0) {
             fight(obj, mon);
 //               obj.xp+=20;
         }
-        if (mon.hp <= 0) {
+        
+        
+        if (mon.hp <= 0 && obj.get_hp()>0) {
             level++;
             System.out.println("Monster killed!\n" + "20 XP awarded\n" + "Level Up: level:"+level);
-            
+            if(level>=4){
+                System.out.println("Fight started with the BOSS Lionfang");
+                mon=new Lionfang();
+                while(mon.hp>0 && obj.get_hp()>0){
+                    fight(obj,mon);
+                }
+            }
             obj.set_xp(20+obj.get_xp());
             obj.set_attackvalue(obj.get_attackvalue()+1);
             obj.set_defencevalue(1+obj.get_defencekvalue());
@@ -185,7 +197,9 @@ public class Game {
             }
             location(location, arr_loc, obj);
         }
-        
+        else{
+            System.out.println("YOU LOST");
+        }
     }
 
     public static void fight(hero obj, Monster mon) {
