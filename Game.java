@@ -51,9 +51,9 @@ public class Game {
         int in = Sc.nextInt();
         if (in == 1) {
             System.out.println("Enter Username");
-            String name = Sc.next();
+            final String name = Sc.next();
             System.out.println("Choose a Hero\n" + "1) Warrior\n" + "2) Mage\n" + "3) Thief \n" + "4) Healer");
-            int type = Sc.nextInt();
+            final int type = Sc.nextInt();
             user newuser = new user(name, type);
             String [] montypearr=new String[]{"Warrior","Mage","Theif","Healer" };
             userarray.add(newuser);
@@ -125,6 +125,10 @@ public class Game {
 
     public static void location(int location, int[] arr_loc, hero obj) {
         Scanner Sc = new Scanner(System.in);
+        if(obj.get_hp()<0){
+            System.out.println("SORRY!,YOU LOST");
+            return;
+        }
         System.out.println("Moving to location " + location + "\n" + "Fight Started. You're fighting a level " + arr_loc[location] + "  Monster.");
 //        me.attack;
         Monster mon;
@@ -141,19 +145,19 @@ public class Game {
             else {
             mon = new Lionfang();
         }
-        while (mon.hp > 0 && obj.get_hp()>0) {
+        while (mon.gethp() > 0 && obj.get_hp()>0) {
             fight(obj, mon);
 //               obj.xp+=20;
         }
         
         
-        if (mon.hp <= 0 && obj.get_hp()>0) {
+        if (mon.gethp() <= 0 && obj.get_hp()>0) {
             level++;
             System.out.println("Monster killed!\n" + "20 XP awarded\n" + "Level Up: level:"+level);
             if(level>=4){
                 System.out.println("Fight started with the BOSS Lionfang");
                 mon=new Lionfang();
-                while(mon.hp>0 && obj.get_hp()>0){
+                while(mon.gethp()>0 && obj.get_hp()>0){
                     fight(obj,mon);
                 }
             }
@@ -199,6 +203,7 @@ public class Game {
         }
         else{
             System.out.println("YOU LOST");
+            return;
         }
     }
 
@@ -229,21 +234,21 @@ public class Game {
         if (move == 1) {
 
             obj.attack(mon);
-            System.out.println("Your HP: "+obj.get_hp() +"/"+ total+ " Monsters HP: "+ mon.hp+"/"+mon.maxhp);
+            System.out.println("Your HP: "+obj.get_hp() +"/"+ total+ " Monsters HP: "+ mon.gethp()+"/"+mon.getmaxhp());
             mon.attack(obj);
-            System.out.println("Your Hp:"+ obj.get_hp()+"/" + total +" Monsters Hp:" +mon.hp+"/"+mon.maxhp);
+            System.out.println("Your Hp:"+ obj.get_hp()+"/" + total +" Monsters Hp:" +mon.gethp()+"/"+mon.getmaxhp());
             
         } else if (move == 2)
         {
             obj.defence(mon);
-            System.out.println("Your HP: "+obj.get_hp() +"/"+ total+ " Monsters HP: "+ mon.hp+"/"+mon.maxhp);
+            System.out.println("Your HP: "+obj.get_hp() +"/"+ total+ " Monsters HP: "+ mon.gethp()+"/"+mon.getmaxhp());
             
         } else {
             counter=0;
             obj.special(mon);
-            System.out.println("Your HP: "+obj.get_hp() +"/"+ total+ " Monsters HP: "+ mon.hp+"/"+mon.maxhp);
+            System.out.println("Your HP: "+obj.get_hp() +"/"+ total+ " Monsters HP: "+ mon.gethp()+"/"+mon.getmaxhp());
             mon.attack(obj);
-            System.out.println("Your HP: "+obj.get_hp() +"/"+ total+ " Monsters HP: "+ mon.hp+"/"+mon.maxhp);
+            System.out.println("Your HP: "+obj.get_hp() +"/"+ total+ " Monsters HP: "+ mon.gethp()+"/"+mon.getmaxhp());
             
         }
     }

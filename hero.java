@@ -80,7 +80,7 @@
                 this.set_attackvalue(10);
                 this.set_defencevalue(3);
             }
-            mon.hp-=this.get_attackvalue();
+            mon.sethp(mon.gethp()-this.get_attackvalue());
             System.out.println("You choose to attack\n" + "You attacked and inflicted "+this.get_attackvalue()+" damage to the monster.");        
             
     }
@@ -117,18 +117,18 @@
         
         public void attack(Monster mon){
             if(this.get_specialvalue()>0){
-                mon.hp-=(int)(0.05*mon.hp);
+                mon.sethp(mon.gethp()-(int)(0.05*mon.gethp()));
                 this.set_specialvalue(this.get_specialvalue()-1);
             }
             
-            mon.hp-=this.get_attackvalue();
+            mon.sethp(mon.gethp()-this.get_attackvalue());
             System.out.println("You choose to attack\n" + "You attacked and inflicted "+this.get_attackvalue()+" damage to the monster.");
 //            System.out.println("Your HP: "+this.hp+" Monsters HP: "+ mon.hp);
         }
         public void defence(Monster mon){
 //          System.out.println("yo");
             if(this.get_specialvalue()>0){
-                mon.hp-=(int)(0.05*mon.hp);
+                mon.sethp(mon.gethp()-(int)(0.05*mon.gethp()));
                 this.set_specialvalue(this.get_specialvalue()-1);
             }
             
@@ -152,7 +152,7 @@
             this.set_defencevalue(4);
         }
         public void attack(Monster mon){
-            mon.hp-=this.get_attackvalue();
+            mon.sethp(mon.gethp()-this.get_attackvalue());
             System.out.println("You choose to attack\n" + "You attacked and inflicted "+this.get_attackvalue()+" damage to the monster.");
 //            System.out.println("Your HP: "+this.hp+" Monsters HP: "+ mon.hp);
         }
@@ -166,9 +166,9 @@
         }
         public void special(Monster mon){
            this.set_specialvalue(3);
-            System.out.println("Special power activated\n" +"Performing special attack\n" +"You have stolen "+ 0.3*mon.hp +"Hp from the monster!");
-            this.set_hp(this.get_hp()+(int)(0.3*mon.hp));
-            mon.hp-=(int)(0.3*mon.hp);
+            System.out.println("Special power activated\n" +"Performing special attack\n" +"You have stolen "+ 0.3*mon.gethp() +"Hp from the monster!");
+            this.set_hp(this.get_hp()+(int)(0.3*mon.gethp()));
+            mon.sethp(mon.gethp()-(int)(0.3*mon.gethp()));
          
             //stealing 30% hp        
         }
@@ -184,7 +184,7 @@
                 this.set_hp(this.get_hp()+(int)(0.05*this.get_hp()));
                 this.set_specialvalue(this.get_specialvalue()-1);
             }
-            mon.hp-=this.get_attackvalue();
+            mon.sethp(mon.gethp()-this.get_attackvalue());
             System.out.println("You choose to attack\n" + "You attacked and inflicted "+this.get_attackvalue()+" damage to the monster");
 
         }
