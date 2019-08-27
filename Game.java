@@ -145,18 +145,18 @@ public class Game {
             level++;
             System.out.println("Monster killed!\n" + "20 XP awarded\n" + "Level Up: level:"+level);
             
-            obj.xp += 20;
-            obj.attack_value+=1;
-            obj.defence_value+=1;
+            obj.set_xp(20+obj.get_xp());
+            obj.set_attackvalue(obj.get_attackvalue()+1);
+            obj.set_defencevalue(1+obj.get_defencekvalue());
             counter=0;
             if(level==2){
-                obj.hp=150;
+                obj.set_hp(150);
             }
             if(level==3){
-                obj.hp=200;
+                obj.set_hp(200);
             }
             if(level==4){
-                obj.hp=250;
+                obj.set_hp(250);
             }
             Random r=new Random();
             int [] arr=new int[3];
@@ -215,21 +215,21 @@ public class Game {
         if (move == 1) {
 
             obj.attack(mon);
-            System.out.println("Your HP: "+obj.hp +"/"+ total+ " Monsters HP: "+ mon.hp+"/"+mon.maxhp);
+            System.out.println("Your HP: "+obj.get_hp() +"/"+ total+ " Monsters HP: "+ mon.hp+"/"+mon.maxhp);
             mon.attack(obj);
-            System.out.println("Your Hp:"+ obj.hp+"/" + total +" Monsters Hp:" +mon.hp+"/"+mon.maxhp);
+            System.out.println("Your Hp:"+ obj.get_hp()+"/" + total +" Monsters Hp:" +mon.hp+"/"+mon.maxhp);
             
         } else if (move == 2)
         {
             obj.defence(mon);
-            System.out.println("Your HP: "+obj.hp +"/"+ total+ " Monsters HP: "+ mon.hp+"/"+mon.maxhp);
+            System.out.println("Your HP: "+obj.get_hp() +"/"+ total+ " Monsters HP: "+ mon.hp+"/"+mon.maxhp);
             
         } else {
             counter=0;
             obj.special(mon);
-            System.out.println("Your HP: "+obj.hp +"/"+ total+ " Monsters HP: "+ mon.hp+"/"+mon.maxhp);
+            System.out.println("Your HP: "+obj.get_hp() +"/"+ total+ " Monsters HP: "+ mon.hp+"/"+mon.maxhp);
             mon.attack(obj);
-            System.out.println("Your HP: "+obj.hp +"/"+ total+ " Monsters HP: "+ mon.hp+"/"+mon.maxhp);
+            System.out.println("Your HP: "+obj.get_hp() +"/"+ total+ " Monsters HP: "+ mon.hp+"/"+mon.maxhp);
             
         }
     }

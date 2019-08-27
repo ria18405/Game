@@ -27,7 +27,7 @@ class Monster{
         //k=no to be subtracted
 //        System.out.Sprintln("new gauss"+(k));
 
-        obj.hp-=k;
+        obj.set_hp(obj.get_hp()-k);
         System.out.println("Monster attack!\n" +"monster attacked and inflicted "+k+ " damage to you.");
 
         
@@ -72,7 +72,7 @@ class Lionfang extends Monster{
 //            k=r.nextInt(10);
 //        }
         if(k==check){
-          obj.hp=obj.hp/2;  
+          obj.set_hp(obj.get_hp()/2);  
         }
         else{
 //            obj.attack(mon);
