@@ -39,8 +39,9 @@
         
         public void attack(Monster mon){
             mon.hp-=this.attack_value;
-            System.out.println("You choose to attack\n" + "You attacked and inflicted "+attack_value+" damage to the monster.");        }
-         
+            System.out.println("You choose to attack\n" + "You attacked and inflicted "+attack_value+" damage to the monster.");        
+            
+    }
         public void defence(Monster mon){
 //          System.out.println("defence_warrior"); 
           mon.attack(this);
@@ -48,8 +49,8 @@
         }
          
         public void special(Monster mon){
-            System.out.println("special"); 
-//            counter=0;
+            
+            System.out.println("Special power activated\n" +"Performing special attack\n" +"You have increased your attack and defence ues by 5 Hp");
             this.attack_value+=5;
             this.defence_value+=5;
         }
@@ -63,7 +64,7 @@
         public void attack(Monster mon){
             mon.hp-=this.attack_value;
             System.out.println("You choose to attack\n" + "You attacked and inflicted "+this.attack_value+" damage to the monster.");
-
+//            System.out.println("Your HP: "+this.hp+" Monsters HP: "+ mon.hp);
         }
         public void defence(Monster mon){
 //          System.out.println("yo");
@@ -72,7 +73,9 @@
           
         }
         public void special(Monster mon){
-            System.out.println("special"); 
+            System.out.println("Special power activated\n" +"Performing special attack\n" +"You have decreased monsters's hp by 5%");
+
+            mon.hp-=(0.05*mon.hp);
         }
     }
     
@@ -85,7 +88,7 @@
         public void attack(Monster mon){
             mon.hp-=this.attack_value;
             System.out.println("You choose to attack\n" + "You attacked and inflicted "+this.attack_value+" damage to the monster.");
-
+//            System.out.println("Your HP: "+this.hp+" Monsters HP: "+ mon.hp);
         }
         public void defence(Monster mon){
           mon.attack(this);
@@ -93,9 +96,13 @@
           this.hp+=this.defence_value;
         }
         public void special(Monster mon){
-            System.out.println("special"); 
-
+           
+            System.out.println("Special power activated\n" +"Performing special attack\n" +"You have stolen "+ 0.3*mon.hp +"Hp from the monster!");
+             this.hp+=(0.3*mon.hp);
+            mon.hp-=(0.3*mon.hp);
             
+            
+            //stealing 30% hp        
         }
     }
     
@@ -115,7 +122,9 @@
           this.hp+=this.defence_value;
         }
         public void special(Monster mon){
-            System.out.println("special"); 
+            System.out.println("special");
+            System.out.println("Special power activated\n" +"Performing special attack\n" +"You have increased your own Hp by 5%");
+            this.hp+=(0.05*this.hp);
         }
     }
     

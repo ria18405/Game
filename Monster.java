@@ -28,7 +28,7 @@ class Monster{
 
         obj.hp-=k;
         System.out.println("Monster attack!\n" +"monster attacked and inflicted "+k+ " damage to you.");
-        System.out.println("Your Hp:"+ obj.hp+"/100 . Monsters Hp:" +this.hp+"/100");
+
         
         //reduce opponenent by a;
 //        Random r=new Random();
@@ -41,10 +41,7 @@ class Goblins extends Monster{
     public Goblins(){
           this.hp=100; 
     }
-//    public void attack(){
-//       System.out.println("Monster attack!\n" +"monster attacked and inflicted "+ "damage to you.\n");
-//
-//    }
+
 }
 class Zombies extends Monster{
     public Zombies(){
@@ -60,6 +57,7 @@ class Lionfang extends Monster{
     public Lionfang(){
         this.hp=250;
     }
+    @Override
     public void attack(hero obj){
         //probability=1/10
         int check=9;
@@ -72,7 +70,8 @@ class Lionfang extends Monster{
           obj.hp=obj.hp/2;  
         }
         else{
-            //normal
+//            obj.attack(mon);
+           super.attack(obj);
         }
     }
     //opponent.hp=(opponent.hp/2);
