@@ -16,6 +16,8 @@ public class Game {
     static int level=1;
 
     public static void main(String[] args) {
+//        Graph a =new Graph();
+//        a.graph();
         
         int[] arr_loc = new int[7];
         Random r = new Random();
@@ -154,6 +156,29 @@ public class Game {
         if (mon.gethp() <= 0 && obj.get_hp()>0) {
             level++;
             System.out.println("Monster killed!\n" + "20 XP awarded\n" + "Level Up: level:"+level);
+            System.out.println("If you would you like to buy a sidekick, type yes. Else type no to upgrade level.");
+            String sidekick_bool=Sc.next();
+            if(sidekick_bool.equals("yes")){
+                //call sidekick
+                Sidekick helper;
+                System.out.println("Your current XP is"+obj.get_xp()+"\n" +"If you want to buy a minion, press 1.\n" +"If you want to buy a knight, press 2.");
+                int num=Sc.nextInt();
+                if(num==1){
+                    helper=new Minion();
+                    helper.buy(obj);
+//                    fightwithhelper(obj,mon);
+                        obj.attack(mon);
+                        helper.Attack(mon);
+                        mon.attack(obj);
+                }
+                else{
+                    helper=new Knight();
+                    helper.buy();
+                }
+            }
+            else{
+                
+            
             if(level>=4){
                 System.out.println("Fight started with the BOSS Lionfang");
                 mon=new Lionfang();
@@ -200,6 +225,7 @@ public class Game {
                 return;
             }
             location(location, arr_loc, obj);
+        }
         }
         else{
             System.out.println("YOU LOST");
