@@ -139,13 +139,17 @@ public class Game {
         }
         else if (arr_loc[location ] == 1) {
             mon = new Goblins();
+            mon.level=1;
         } else if (arr_loc[location ] == 2) {
             mon = new Zombies();
+            mon.level=2;
         } else if (arr_loc[location ] == 3) {
             mon = new Fiends();
+            mon.level=3;
         }
             else {
             mon = new Lionfang();
+            mon.level=4;
         }
         while (mon.gethp() > 0 && obj.get_hp()>0) {
             fight(obj, mon);
@@ -170,16 +174,67 @@ public class Game {
                 int num=Sc.nextInt();
                 if(num==1){
                     helper=new Minion();
-                    helper.buy(obj);
+                  helper.buy(obj);
+                    /*System.out.println("XP to spend:(should be greater than 5)" );
+                    int a=Sc.nextInt();
+                    if(a>=5){
+                        helper.attack_value=1+(int)(0.5*(a-5));
+                        obj.set_xp(obj.get_xp()-a);
+                    }
+
+                    System.out.println("You bought a sidekick: minion\n" + "XP of sidekick is 0.0\n" + "Attack of sidekick is"+helper.attack_value);
+                    System.out.println("Press c to use cloning ability. Else press f to move to the fight");
+                    String in=Sc.next();
+                    if(in.equals("c")){
+                        helper.cloningpresent=1;
+                        System.out.println("Cloning done.");
+                    }
+                    else{
+                        //start fight 
+                        fightwithhelper(obj,mon,helper);
+                    }*/
+                    
+                    
+                    
+                    
                     while(mon.gethp()>0 && obj.get_hp()>0){
                         fightwithhelper(obj,mon,helper);
+                    }
+                    if(obj.get_hp()<=0){
+                        return;
+                    }
+                    if(helper.gethp()<0){
+                        //dead
+                    }
+                    if(mon.gethp()<=0 && helper.gethp()>=0 && obj.get_hp()>=0){
+                        System.out.println("YOU WON THIS LEVEL WITH THE MINION");
+                        helper.setxp(helper.gethp()+2*mon.level);
+                        helper.sethp(100);
+                        location(location, arr_loc, obj);
                     }
                         
                 }
                 else{
-//                    helper=new Knight();
-//                    helper.buy();
-                    System.out.println("knight has cme");
+                    helper=new Knight();
+                    helper.buy(obj);
+                   /* System.out.println("XP to spend:(minimum 8)");
+                     int a=Sc.nextInt();
+                     if(a>=8){
+                    helper.attack_value=2+(int)(0.5*(a-8));
+                    obj.set_xp(obj.get_xp()-a);
+                     }
+                    System.out.println("You bought a sidekick: knight \n" + "XP of sidekick is 0.0\n" + "Attack of sidekick is"+helper.attack_value);
+                    */
+                    while(mon.gethp()>0 && obj.get_hp()>0){
+                        fightwithhelper(obj,mon,helper);
+                    }
+                    if(mon.gethp()<=0 && helper.gethp()>=0 && obj.get_hp()>=0){
+                        System.out.println("YOU WON THIS LEVEL WITH THE KNIGHT");
+                        helper.setxp(helper.gethp()+2*mon.level);
+                        helper.sethp(100);
+                        location(location, arr_loc, obj);
+                    }
+                    
                 }
             }
             else{
@@ -245,7 +300,8 @@ public class Game {
         Scanner Sc = new Scanner(System.in);
         if (counter > 3) {
             System.out.println("Choose move:\n" + "1) Attack\n" + "2) Defense\n" + "3) Special Attack");
-        } else {
+        } 
+        else {
             System.out.println("Choose move:\n" + "1) Attack\n" + "2) Defense");            
         }
         int total=0;
@@ -309,17 +365,20 @@ public class Game {
         //            
         //        }
                 System.out.println("Your Hp: "+obj.get_hp()+" /"+total+ "Monsters Hp : "+mon.gethp()+" /"+mon.getmaxhp());
-                int start=mon.gethp();
+                int start=obj.get_hp();
                 mon.attack(obj);
-                int end=mon.gethp();
+                int end=obj.get_hp();
                 int diff=start-end;
                 mon.attackhelper(helper,diff);
                 System.out.println("Your Hp: "+obj.get_hp()+" /"+total+ "Monsters Hp : "+mon.gethp()+" /"+mon.getmaxhp());
 
             }
             else{
+              if(mon.level==2){
+                  obj.set_defencevalue(obj.get_defencekvalue()+5);
+              }
                 obj.defence(mon);
-                System.out.println("Your Hp: "+obj.get_hp()+" /"+total+ "Monsters Hp : "+mon.gethp()+" /"+mon.getmaxhp());
+                System.out.println("Your Hp: "+obj.get_hp()+" /"+total+ " Monsters Hp : "+mon.gethp()+" /"+mon.getmaxhp());
                 int start=mon.gethp();
                 mon.attack(obj);
                 int end=mon.gethp();

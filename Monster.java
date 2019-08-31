@@ -16,6 +16,7 @@ class Monster{
     
     private int hp;
     private int maxhp;
+    public int level;
     public void attack(hero obj){
         Random r=new Random();
         double rvar=r.nextGaussian();
@@ -38,7 +39,9 @@ class Monster{
 //        opponent.hp-=a;
     }
     public void attackhelper(Sidekick helper,int diff){
+      
         int attackvaluehelper=(int)(1.5*diff);
+//      System.out.println("diff"+diff+" "+attackvaluehelper);
         helper.sethp(helper.gethp()-attackvaluehelper);
         System.out.println("Sidekicks hp "+helper.gethp()+" /100");
         if(helper.cloningpresent==1){
