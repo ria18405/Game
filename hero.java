@@ -15,6 +15,7 @@
     private int attack_value=0;
     private int defence_value;
     private int special_value=0;
+    public int maxhp;
     
 
 //    public int attack_value;
@@ -68,6 +69,7 @@
             this.set_attackvalue(10);
 //            this.attack_value=10;
             this.set_defencevalue(3);
+//            this.maxhp=
         }
         
         public void attack(Monster mon){

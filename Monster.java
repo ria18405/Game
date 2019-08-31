@@ -37,6 +37,17 @@ class Monster{
 //        System.out.println(a);
 //        opponent.hp-=a;
     }
+    public void attackhelper(Sidekick helper,int diff){
+        int attackvaluehelper=(int)(1.5*diff);
+        helper.sethp(helper.gethp()-attackvaluehelper);
+        System.out.println("Sidekicks hp "+helper.gethp()+" /100");
+        if(helper.cloningpresent==1){
+            for(int i=0;i<helper.clonedspecies.size();i++){
+                helper.clonedspecies.get(i).sethp(helper.clonedspecies.get(i).gethp()-attackvaluehelper);
+                System.out.println(" Sidekicks hp "+helper.clonedspecies.get(i).gethp()+" /100");
+            }
+        }
+    }
     public int gethp(){
         return this.hp;
     }

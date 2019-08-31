@@ -154,31 +154,38 @@ public class Game {
         
         
         if (mon.gethp() <= 0 && obj.get_hp()>0) {
-            level++;
-            System.out.println("Monster killed!\n" + "20 XP awarded\n" + "Level Up: level:"+level);
+            System.out.println("Monster killed!\n" + "20 XP awarded\n" );
+            obj.set_xp(20+obj.get_xp());
             System.out.println("If you would you like to buy a sidekick, type yes. Else type no to upgrade level.");
             String sidekick_bool=Sc.next();
+            
+            
+            
+            
             if(sidekick_bool.equals("yes")){
                 //call sidekick
                 Sidekick helper;
-                System.out.println("Your current XP is"+obj.get_xp()+"\n" +"If you want to buy a minion, press 1.\n" +"If you want to buy a knight, press 2.");
+                mon.sethp(mon.getmaxhp());
+                System.out.println("Your current XP is "+obj.get_xp()+"\n" +"If you want to buy a minion, press 1.\n" +"If you want to buy a knight, press 2.");
                 int num=Sc.nextInt();
                 if(num==1){
                     helper=new Minion();
                     helper.buy(obj);
-//                    fightwithhelper(obj,mon);
-                        obj.attack(mon);
-                        helper.Attack(mon);
-                        mon.attack(obj);
+                    while(mon.gethp()>0 && obj.get_hp()>0){
+                        fightwithhelper(obj,mon,helper);
+                    }
+                        
                 }
                 else{
-                    helper=new Knight();
-                    helper.buy();
+//                    helper=new Knight();
+//                    helper.buy();
+                    System.out.println("knight has cme");
                 }
             }
             else{
                 
-            
+            level++;
+            System.out.println("Monster killed!\n" + "20 XP awarded\n" + "Level Up: level:"+level);
             if(level>=4){
                 System.out.println("Fight started with the BOSS Lionfang");
                 mon=new Lionfang();
@@ -186,7 +193,7 @@ public class Game {
                     fight(obj,mon);
                 }
             }
-            obj.set_xp(20+obj.get_xp());
+//            obj.set_xp(20+obj.get_xp());
             obj.set_attackvalue(obj.get_attackvalue()+1);
             obj.set_defencevalue(1+obj.get_defencekvalue());
             counter=0;
@@ -277,6 +284,48 @@ public class Game {
             System.out.println("Your HP: "+obj.get_hp() +"/"+ total+ " Monsters HP: "+ mon.gethp()+"/"+mon.getmaxhp());
             
         }
+    }
+    public static void fightwithhelper(hero obj,Monster mon, Sidekick helper){
+        Scanner Sc=new Scanner(System.in);
+        int total=0;
+            if(level==1){
+                total=100;
+            }
+            else if(level==2){
+                total=150;
+            }
+            else if(level==3){
+                total=200;
+            }
+            else{
+                total=250;
+            }
+            System.out.println("Choose move \n"+"1. Attack\n"+"2. Defence\n");
+            int move=Sc.nextInt();
+            if(move==1){
+                obj.attack(mon);
+                helper.Attack(mon);
+        //        if(helper.cloningpresent==1){
+        //            
+        //        }
+                System.out.println("Your Hp: "+obj.get_hp()+" /"+total+ "Monsters Hp : "+mon.gethp()+" /"+mon.getmaxhp());
+                int start=mon.gethp();
+                mon.attack(obj);
+                int end=mon.gethp();
+                int diff=start-end;
+                mon.attackhelper(helper,diff);
+                System.out.println("Your Hp: "+obj.get_hp()+" /"+total+ "Monsters Hp : "+mon.gethp()+" /"+mon.getmaxhp());
+
+            }
+            else{
+                obj.defence(mon);
+                System.out.println("Your Hp: "+obj.get_hp()+" /"+total+ "Monsters Hp : "+mon.gethp()+" /"+mon.getmaxhp());
+                int start=mon.gethp();
+                mon.attack(obj);
+                int end=mon.gethp();
+                int diff=start-end;
+                mon.attackhelper(helper, diff);
+            }
     }
     
 }
